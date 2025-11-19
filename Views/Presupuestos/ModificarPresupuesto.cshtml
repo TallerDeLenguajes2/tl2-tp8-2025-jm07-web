@@ -1,0 +1,20 @@
+@model Presupuestos
+<section class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+    <article class="border rounded p-5">
+        <form asp-controller="Presupuestos" asp-action="ModificarPresupuesto" method="post">
+            <section class="form-group p-2">
+                <label asp-for="nombreDestinatario" class="form-label">Nombre del Destinatario</label>
+                <input type="text" asp-for="nombreDestinatario" class="form-control-sm" value="@Model.nombreDestinatario">
+            </section>
+            <section class="form-group d-flex justify-content-between p-2">
+                <label asp-for="FechaCreacion" class="form-label">Fecha</label>
+                <input type="text" asp-for="FechaCreacion" class="form-control-sm" value="@Model.FechaCreacion">
+            </section>
+            <input type="hidden" asp-for="@Model.IdPresupuesto">
+            <section class="form-group p-2">
+                <input type="submit" value="modificar" class="btn btn-primary">
+                <a class="btn btn-danger " asp-controller="Presupuestos" asp-action="Index">volver</a>
+            </section>
+        </form>
+    </article>
+</section>

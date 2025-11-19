@@ -1,0 +1,20 @@
+﻿@model Producto
+<section class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+    <article class="border rounded p-5">
+        <form asp-controller="Productos" asp-action="ModificarProducto" method="post">
+            <section class="form-group p-2">
+                <label asp-for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" asp-for="descripcion" class="form-control-sm" value="@Model.descripcion">
+            </section>
+            <section class="form-group d-flex justify-content-between p-2">
+                <label asp-for="precio" class="form-label">Precio</label>
+                <input type="number" asp-for="precio" class="form-control-sm" value="@Model.precio">
+            </section>
+            <input type="hidden" asp-for="@Model.idProducto">
+            <section class="form-group p-2">
+                <input type="submit" value="modificar" class="btn btn-primary">
+                <a class="btn btn-secondary" asp-controller="Productos" asp-action="Index">volver</a>
+            </section>
+        </form>
+    </article>
+</section>

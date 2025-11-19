@@ -12,13 +12,12 @@ public class PresupuestosRepository
 
     public void CrearPresupuesto(Presupuestos presupuesto)
     {
-        var sql = $"INSERT INTO presupuestos (IdPresupuesto, NombreDestinatario, FechaCreacion) VALUES (@IdPresupuesto, @NombreDestinatario, @FechaCreacion)";
+        var sql = $"INSERT INTO presupuestos (NombreDestinatario, FechaCreacion) VALUES (@NombreDestinatario, @FechaCreacion)";
         using (SqliteConnection conexion = new SqliteConnection(cadenaConexion))
         {
             conexion.Open();
             var comando = new SqliteCommand(sql, conexion);
 
-            comando.Parameters.Add(new SqliteParameter("@IdPresupuesto", presupuesto.IdPresupuesto));
             comando.Parameters.Add(new SqliteParameter("@NombreDestinatario", presupuesto.nombreDestinatario));
             comando.Parameters.Add(new SqliteParameter("@FechaCreacion", presupuesto.FechaCreacion));
 
@@ -148,6 +147,23 @@ public class PresupuestosRepository
         
         conexion.Close();
         return p;
+    }
+
+    public void ModificarPresupuesto(int id, Presupuestos presupuesto)
+    {
+        using var conexion = new SqliteConnection(cadenaConexion);
+        conexion.Open();
+
+        string sql = "UPDATE presupuestos SET NombreDestinatario = @NombreDestinatario, FechaCreacion = @FechaCreacion WHERE IdPresupuesto = @IdPresupuesto";
+        using var comando = new SqliteCommand(sql, conexion);
+
+        comando.Parameters.Add(new SqliteParameter("@NombreDestinatario", presupuesto.nombreDestinatario));
+        comando.Parameters.Add(new SqliteParameter("@FechaCreacion", presupuesto.FechaCreacion));
+        comando.Parameters.Add(new SqliteParameter("@IdPresupuesto", id));
+
+        comando.ExecuteNonQuery();
+
+        conexion.Close();
     }
 
     public bool InsertarProductoYCantidadEnPresupuesto(int id, int idProd, int cantidad)
